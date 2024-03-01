@@ -1,35 +1,42 @@
+//Плагины гредла - тут и джава, и спринг бут
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.3'
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
+//Группа проекта и версия. Название идет из settings.gradle
 group = 'ru.pasvitas.teaching'
 version = '0.0.1-SNAPSHOT'
 
+//Версия джавы
 java {
 	sourceCompatibility = '21'
 }
 
+//Доп конфигурация для ломбока
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
 }
 
+//Репозитории, откуда брать зависимости
 repositories {
 	mavenCentral()
 }
 
+//Сами зависимости
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' //JPA - для работы с базой данных
+	implementation 'org.springframework.boot:spring-boot-starter-web' //Web - известно по 1 лекции
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2' //H2 - встроенная база данных
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+//Запуск тестов
 tasks.named('test') {
 	useJUnitPlatform()
 }

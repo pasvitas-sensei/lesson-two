@@ -1,1 +1,1 @@
-# lesson-two
+# Lesson Two - JPA
