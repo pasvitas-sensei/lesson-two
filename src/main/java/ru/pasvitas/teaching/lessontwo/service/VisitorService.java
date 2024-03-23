@@ -12,4 +12,6 @@ public interface VisitorService {
     List<Visitor> getAllVisitors();
 
     Optional<Visitor> getVisitorById(Long id);
+
+    void deleteVisitorById(Long id);
 }

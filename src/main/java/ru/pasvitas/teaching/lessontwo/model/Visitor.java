@@ -6,7 +6,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Date;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,7 @@ import lombok.ToString;
 @ToString //Отдельный метод для toString
 @Entity(name = "visitors") //Объявляем класс как сущность для работы с ним в БД и его имя
 @Table(name = "visitors") //Помечаем, как называется таблица в БД
+@EqualsAndHashCode
 public class Visitor {
 
     @Id //Первичный ключ всему голова
@@ -35,4 +38,7 @@ public class Visitor {
 
     @Column(name = "time_visited")
     private int timeVisited;
+    
+    @Column(name = "last_visited")
+    private Date lastVisited;
 }

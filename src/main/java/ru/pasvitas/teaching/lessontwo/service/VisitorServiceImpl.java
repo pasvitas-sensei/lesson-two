@@ -1,17 +1,21 @@
 package ru.pasvitas.teaching.lessontwo.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pasvitas.teaching.lessontwo.model.Visitor;
 import ru.pasvitas.teaching.lessontwo.repository.VisitorRepository;
+import ru.pasvitas.teaching.lessontwo.utils.NowService;
 
 @Service
 @RequiredArgsConstructor
 public class VisitorServiceImpl implements VisitorService {
 
     private final VisitorRepository visitorsRepository;
+
+    private final NowService nowService;
 
     @Override
     public Visitor registerVisitor(Visitor visitor) {
@@ -24,6 +28,7 @@ public class VisitorServiceImpl implements VisitorService {
             //Warning. Тут мы буквально переопределяем параметр на объект из Optional. Делать крайне не рекомендуется, тут лишь для примера
             visitor = visitorOptional.get();
             visitor.setTimeVisited(visitor.getTimeVisited() + 1);
+            visitor.setLastVisited(nowService.getCurrentDate());
         }
         else {
             //Если посетителя нет - значит надо записать, на всякий зануляем id, чтобы пользователь не подставлял свой на этапе запроса
@@ -43,5 +48,10 @@ public class VisitorServiceImpl implements VisitorService {
     public Optional<Visitor> getVisitorById(Long id) {
         //Репозиторий имеет и отдельные методы для поиска - например, поиск по ИД
         return visitorsRepository.findById(id);
+    }
+
+    @Override
+    public void deleteVisitorById(Long id) {
+        visitorsRepository.deleteById(1L);
     }
 }
