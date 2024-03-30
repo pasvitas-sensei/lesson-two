@@ -6,6 +6,7 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pasvitas.teaching.lessontwo.model.Visitor;
+import ru.pasvitas.teaching.lessontwo.model.VisitorHistory;
 import ru.pasvitas.teaching.lessontwo.repository.VisitorRepository;
 import ru.pasvitas.teaching.lessontwo.utils.NowService;
 
@@ -29,13 +30,14 @@ public class VisitorServiceImpl implements VisitorService {
             visitor = visitorOptional.get();
             visitor.setTimeVisited(visitor.getTimeVisited() + 1);
             visitor.setLastVisited(nowService.getCurrentDate());
+            visitor.getVisitorHistory().add(new VisitorHistory(null, visitor, new Date()));
         }
         else {
             //Если посетителя нет - значит надо записать, на всякий зануляем id, чтобы пользователь не подставлял свой на этапе запроса
             visitor.setId(null);
         }
         //Сохраняем в БД
-        return visitorsRepository.save(visitor);
+        return visitorsRepository.saveAndFlush(visitor);
     }
 
     @Override

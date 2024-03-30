@@ -33,19 +33,8 @@ public class VisitorController {
 
     //Реагирует на GET /visitors/id, где id - идентификатор
     @GetMapping("/{id}") //{id} - название переменной для пути
-    ResponseEntity<Visitor> getVisitor(@PathVariable("id") Long id) { //Из пути переменная пойдет прямиком в {id}
-        //Лмябды - если посетитель найдется - возвращаем OK с телом его, если нет - notFound
+    ResponseEntity<Visitor> getVisitor(@PathVariable("id") Long id) {
         return visitorService.getVisitorById(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-        //Без лямбды эт выглядело бы так:
-        /*
-        Optional<Visitor> visitor = visitorService.getVisitorById(id);
-        if (visitor.isPresent()) {
-            return ResponseEntity.ok(visitor.get());
-        }
-        else {
-            return ResponseEntity.notFound().build();
-        }
-         */
     }
 
 }

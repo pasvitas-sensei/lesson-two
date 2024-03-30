@@ -1,12 +1,15 @@
 package ru.pasvitas.teaching.lessontwo.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -41,4 +44,8 @@ public class Visitor {
     
     @Column(name = "last_visited")
     private Date lastVisited;
+
+    @OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
+    private List<VisitorHistory> visitorHistory;
+
 }
